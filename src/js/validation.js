@@ -1,6 +1,7 @@
+import { crearUsuario } from "./crud-provider";
 
 const form = document.getElementsByTagName('form')[0];
-const email = document.getElementById('userEmail');
+const email = document.getElementById('email');
 const emailError = document.querySelector('span.error');
 
 const init = () => {
@@ -21,6 +22,11 @@ const validation = () => {
         if(!email.validity.valid) {
             showError();
             event.preventDefault(); //Evitamos que se envíe el formulario
+        } else {
+            const data = new FormData(document.getElementById('formulario'));
+            const usuario = Object.fromEntries(data);
+            crearUsuario(usuario).then(console.log);
+            event.preventDefault();
         }
     });
 }
